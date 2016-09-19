@@ -1,18 +1,11 @@
 package net.ccgames.bb.handlers;
 
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.opengl.Texture;
 
 import net.ccgames.bb.ref.References;
 
@@ -25,8 +18,8 @@ import net.ccgames.bb.ref.References;
  */
 public class ArtistHandler
 {
-	public static final int WIDTH = 800;
-	public static final int HEIGHT= 600;
+	public static final int WIDTH = 640;
+	public static final int HEIGHT= 480;
 	
 	public static void BeginSession()
 	{
@@ -47,6 +40,7 @@ public class ArtistHandler
 		glLoadIdentity();
 		glOrtho(0, References.WIDTH, References.HEIGHT, 0, 1, -1); // 2D game
 		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_2D);
 	}
 	
 	/**
@@ -65,5 +59,19 @@ public class ArtistHandler
 		glVertex2f(x + width, y + height);
 		glVertex2f(x, y + height);
 		glEnd();
+	}
+	
+	/**
+	 * Draws a quad on the screen with the given parameters. Draws with a texture on top of quad.
+	 * @param texture - Texture to render over quad
+	 * @param x - Top Left X
+	 * @param y - Top Left Y
+	 * @param width - Width of Quad
+	 * @param height - Height of Quad
+	 */
+	public static void drawTexturedQuad(Texture texture, float x, float y, float width, float height)
+	{
+		texture.bind();
+		glTranslatef(x, y, 0);
 	}
 }
