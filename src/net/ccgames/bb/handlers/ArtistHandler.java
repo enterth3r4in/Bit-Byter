@@ -73,5 +73,16 @@ public class ArtistHandler
 	{
 		texture.bind();
 		glTranslatef(x, y, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0);
+		glVertex2f(width, 0);
+		glTexCoord2f(1, 1);
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height);
+		glLoadIdentity();
+		glEnd();
 	}
 }
