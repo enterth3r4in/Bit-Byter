@@ -4,9 +4,11 @@
 package net.ccgames.bb;
 
 import static net.ccgames.bb.handlers.ArtistHandler.*;
-import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.Display;
+
+import net.ccgames.bb.tile.Tile;
+import net.ccgames.bb.tile.TileType;
 
 /**
  * The BitByterApplication class is used to create and manage the display and rendering. May move to other class
@@ -24,10 +26,13 @@ public class BitByterApplication
 	{
 		BeginSession();
 		
+		Tile grass = new Tile(0, 0, 32, 32, TileType.GRASS);
+		Tile dirt = new Tile(32, 0, 32, 32, TileType.DIRT);
+
 		while(!Display.isCloseRequested())
 		{
-			drawBlankQuad(50, 50, 100, 100);
-			drawBlankQuad(250, 250, 50, 50);
+			grass.draw();
+			dirt.draw();
 			
 			
 			//lwjgl methods to update and sync FPS

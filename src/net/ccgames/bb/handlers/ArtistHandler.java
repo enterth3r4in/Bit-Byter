@@ -2,10 +2,15 @@ package net.ccgames.bb.handlers;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import net.ccgames.bb.ref.References;
 
@@ -82,7 +87,39 @@ public class ArtistHandler
 		glVertex2f(width, height);
 		glTexCoord2f(0, 1);
 		glVertex2f(0, height);
-		glLoadIdentity();
 		glEnd();
+		glLoadIdentity();
+	}
+	
+	/**
+	 * Loads texture with an input stream and using a path and file type (.png usually).
+	 * @param path - Location of texture
+	 * @param fileType - File Type of texture
+	 * @return - the texture to load
+	 */
+	public static Texture loadTexture(String path, String fileType)
+	{
+		Texture texture = null;
+		InputStream in = ResourceLoader.getResourceAsStream(path);
+		try
+		{
+			texture = TextureLoader.getTexture(fileType, in);
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return texture;
+	}
+	
+	/**
+	 * Uses the loadTexture(path, fileType) to load by default a tile as a png.
+	 * @param name
+	 * @return
+	 */
+	public static Texture loadTileTextureAsPNG(String name)
+	{
+		Texture texture = null;
+		texture = loadTexture("assets/Tiles/" + name + ".png", "PNG");
+		return texture;
 	}
 }
